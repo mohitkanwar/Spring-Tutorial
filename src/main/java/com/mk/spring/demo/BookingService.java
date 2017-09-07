@@ -28,6 +28,7 @@ public class BookingService {
     }
 
     public List<String> findAllBookings() {
+        logger.info(" Inside findAllBookings Method");
         return jdbcTemplate.query("select FIRST_NAME from BOOKINGS",
                 (rs, rowNum) -> rs.getString("FIRST_NAME"));
     }
