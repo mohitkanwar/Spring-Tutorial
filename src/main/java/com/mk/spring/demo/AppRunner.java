@@ -6,6 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 class AppRunner implements CommandLineRunner {
 
@@ -19,12 +22,20 @@ class AppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        bookingService.book("Alice", "Bob", "Carol");
+        List<String> test1 = new ArrayList<>();
+        test1.add("Alice");
+        test1.add("Bob");
+        test1.add("Carol");
+        bookingService.book(test1);
         Assert.isTrue(bookingService.findAllBookings().size() == 3,
                 "First booking should work with no problem");
         logger.info("Alice, Bob and Carol have been booked");
         try {
-            bookingService.book("Chris", "Samuel");
+            List<String> test2 = new ArrayList<>();
+            test2.add("Chris");
+            test2.add("Samuel");
+
+            bookingService.book(test2);
         } catch (RuntimeException e) {
             logger.info("v--- The following exception is expect because 'Samuel' is too " +
                     "big for the DB ---v");
@@ -39,7 +50,11 @@ class AppRunner implements CommandLineRunner {
         Assert.isTrue(bookingService.findAllBookings().size() == 3, "'Samuel' should have triggered a rollback");
 
         try {
-            bookingService.book("Buddy", null);
+            List<String> test3 = new ArrayList<>();
+            test3.add("Buddy");
+            test3.add(null);
+
+            bookingService.book(test3);
         } catch (RuntimeException e) {
             logger.info("v--- The following exception is expect because null is not " +
                     "valid for the DB ---v");
