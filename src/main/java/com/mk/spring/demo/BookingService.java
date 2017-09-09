@@ -20,7 +20,7 @@ public class BookingService {
     }
 
     @Transactional
-    public void book(String... persons) {
+    public void book(List<String> persons) {
         for (String person : persons) {
             logger.info("Booking " + person + " in a seat...");
             jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
