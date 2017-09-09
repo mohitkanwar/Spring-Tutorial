@@ -11,7 +11,7 @@
 
 	    body {
 
-	            background-image: url(macro-1208503_1920.jpg);
+	            background-image: url(images/macro-1208503_1920.jpg);
                 background-repeat: no-repeat;
                 background-size: cover;
 	    }
@@ -37,22 +37,14 @@
                 <a class="nav-link active" href="#">Greeting</a>
             </li>
         </ul>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
     </nav>
     <div class="jumbotron jumbotron-fluid rounded-bottom">
-        <h1 class="display-3" th:text="'Hello, ' + ${name} + '!'"></h1>
+        <h1 class="display-3" th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!</h1>
+        <p>This is your personal page. Enjoy!</p>
         <hr/>
-        <div class="container">
-            <form method="get" action="/greeting">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="input" class="form-control" id="name" placeholder="Want to greet someone else? Just fill the name in here and click on Go!." name="name" aria-label="Want to greet someone else? Just fill the name in here and click on Go!"/>
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
 
 </div>
