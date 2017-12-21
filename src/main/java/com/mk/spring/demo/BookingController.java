@@ -3,6 +3,7 @@ package com.mk.spring.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class BookingController {
     private final static Logger logger = LoggerFactory.getLogger(BookingController.class);
 
     @Autowired
+    @Qualifier("special")
     private BookingService service;
     @RequestMapping(value = "/book" , method = { RequestMethod.POST  })
     public ModelAndView bookSeat(@RequestParam(value="name1", required=false) String name1,
