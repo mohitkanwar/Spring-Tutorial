@@ -5,10 +5,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
 public class DefaultBookingServiceImpl implements BookingService{
 
     private final static Logger logger = LoggerFactory.getLogger(DefaultBookingServiceImpl.class);
@@ -20,10 +20,13 @@ public class DefaultBookingServiceImpl implements BookingService{
     }
 
     @Transactional
-    public void book(List<String> persons) {
+    public void book(String... persons) {
         for (String person : persons) {
-            logger.info("Booking " + person + " in a seat...");
-            jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
+            if(!person.equals("")){
+                logger.info("Booking " + person + " in a seat...");
+                jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
+
+            }
         }
     }
 
