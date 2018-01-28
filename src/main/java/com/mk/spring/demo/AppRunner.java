@@ -22,22 +22,14 @@ class AppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<String> test1 = new ArrayList<>();
-        test1.add("Alice");
-        test1.add("Bob");
-        test1.add("Carol");
-        bookingService.book(test1);
+        bookingService.book("Amit","Bobby","Charu");
         Assert.isTrue(bookingService.findAllBookings().size() == 3,
                 "First booking should work with no problem");
-        logger.info("Alice, Bob and Carol have been booked");
+        logger.info("Amit, Bobby and Charu have been booked");
         try {
-            List<String> test2 = new ArrayList<>();
-            test2.add("Chris");
-            test2.add("Samuel");
-
-            bookingService.book(test2);
+            bookingService.book("Ajay","Suneel");
         } catch (RuntimeException e) {
-            logger.info("v--- The following exception is expect because 'Samuel' is too " +
+            logger.info("v--- The following exception is expected because 'Suneel' is too " +
                     "big for the DB ---v");
             logger.error(e.getMessage());
         }
@@ -45,16 +37,12 @@ class AppRunner implements CommandLineRunner {
         for (String person : bookingService.findAllBookings()) {
             logger.info("So far, " + person + " is booked.");
         }
-        logger.info("You shouldn't see Chris or Samuel. Samuel violated DB constraints, " +
-                "and Chris was rolled back in the same TX");
-        Assert.isTrue(bookingService.findAllBookings().size() == 3, "'Samuel' should have triggered a rollback");
+        logger.info("You shouldn't see Ajay or Suneel. Suneel violated DB constraints, " +
+                "and Ajay was rolled back in the same TX");
+        Assert.isTrue(bookingService.findAllBookings().size() == 3, "'Suneel' should have triggered a rollback");
 
         try {
-            List<String> test3 = new ArrayList<>();
-            test3.add("Buddy");
-            test3.add(null);
-
-            bookingService.book(test3);
+            bookingService.book("Buddy",null);
         } catch (RuntimeException e) {
             logger.info("v--- The following exception is expect because null is not " +
                     "valid for the DB ---v");
