@@ -13,36 +13,10 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest
+
 public class WebLayerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
 
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello World")));
-    }
-
-    @Test
-    public void shouldReturnDefaultGreeting() throws Exception {
-        this.mockMvc.perform(get("/greeting"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World!")));
-    }
-
-    @Test
-    public void shouldReturnNamedGreeting() throws Exception {
-        this.mockMvc.perform(get("/greeting?name=Test"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, Test!")));
-    }
 }
 
 

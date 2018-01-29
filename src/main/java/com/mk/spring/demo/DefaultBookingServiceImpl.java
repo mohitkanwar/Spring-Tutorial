@@ -24,16 +24,25 @@ public class DefaultBookingServiceImpl implements BookingService{
     }
 
     @Transactional
-    public void book(List<String> persons) {
+    public void book(String... persons) {
         for (String person : persons) {
-            logger.info("Booking " + person + " in a default seat...");
-            jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
+            if(!person.equals("")){
+                logger.info("Booking " + person + " in a default seat...");
+                jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME,BOOKING_TYPE) values (?,?)", person,"DEFAULT");
+
+            }
         }
     }
 
-    public List<String> findAllBookings() {
-        return jdbcTemplate.query("select FIRST_NAME from BOOKINGS",
-                (rs, rowNum) -> rs.getString("FIRST_NAME"));
+    public List<BookedPerson> findAllBookings() {
+        return jdbcTemplate.query("select FIRST_NAME,BOOKING_TYPE from BOOKINGS",
+                (rs, rowNum) -> {
+            BookedPerson person = new BookedPerson();
+                    person.setBookingType(rs.getString("BOOKING_TYPE"));
+                    person.setName(rs.getString("FIRST_NAME"));
+                    return person;
+
+        });
     }
 
 }

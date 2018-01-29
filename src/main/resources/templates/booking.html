@@ -45,10 +45,12 @@
             <div class="row">
 
 
-            <th:block th:each="name : ${bookings}">
+            <th:block th:each="person : ${bookings}">
                 <div class="col" >
                     <div class="card">
-                        <div class="card-body" th:text="${name} + '!'">
+                        <span class="badge badge-success" th:if="${person.bookingType.equals('SPECIAL')}">Special</span>
+                        <div class="card-body" th:text="${person.name} + '!'">
+
                         </div>
                     </div>
                 </div>

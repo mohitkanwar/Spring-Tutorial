@@ -22,7 +22,7 @@ public class BookingController {
     private final static Logger logger = LoggerFactory.getLogger(BookingController.class);
 
     @Autowired
-    @Qualifier("default")
+    @Qualifier("special")
     private BookingService service;
     @RequestMapping(value = "/book" , method = { RequestMethod.POST  })
     public ModelAndView bookSeat(@RequestParam(value="name1", required=false) String name1,
@@ -32,16 +32,9 @@ public class BookingController {
                                  @RequestParam(value="name5", required=false) String name5,
                                  @RequestParam(value="name6", required=false) String name6,
                                  Model model) {
-        List<String> names = new ArrayList<>();
-        addNameIfNotEmpty(names,name1);
-        addNameIfNotEmpty(names,name2);
-        addNameIfNotEmpty(names,name3);
-        addNameIfNotEmpty(names,name4);
-        addNameIfNotEmpty(names,name5);
-        addNameIfNotEmpty(names,name6);
         String errorMessage=null;
         try {
-            service.book(names);
+            service.book(name1,name2,name3,name4,name5,name6);
         }
         catch (RuntimeException e){
             logger.error(e.getMessage());
