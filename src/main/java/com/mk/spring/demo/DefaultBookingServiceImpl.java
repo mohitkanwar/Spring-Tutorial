@@ -20,7 +20,7 @@ public class DefaultBookingServiceImpl implements BookingService{
     }
 
     @Transactional
-    public void book(String... persons) {
+    public void book(List<String> persons) {
         for (String person : persons) {
             if(!person.equals("")){
                 logger.info("Booking " + person + " in a seat...");
@@ -31,6 +31,7 @@ public class DefaultBookingServiceImpl implements BookingService{
     }
 
     public List<String> findAllBookings() {
+        logger.info("Inside FindAll Bookings!!!");
         return jdbcTemplate.query("select FIRST_NAME from BOOKINGS",
                 (rs, rowNum) -> rs.getString("FIRST_NAME"));
     }

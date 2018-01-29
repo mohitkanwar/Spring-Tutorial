@@ -22,12 +22,21 @@ class AppRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        bookingService.book("Amit","Bobby","Charu");
+        List<String> test = new ArrayList();
+        test.add("Amit");
+        test.add("Bobby");
+        test.add("Charu");
+        bookingService.book(test);
         Assert.isTrue(bookingService.findAllBookings().size() == 3,
                 "First booking should work with no problem");
         logger.info("Amit, Bobby and Charu have been booked");
         try {
-            bookingService.book("Ajay","Suneel");
+            List<String> test1 = new ArrayList();
+            test1.add("Ajay");
+            test1.add("Suneel");
+
+            bookingService.book(test1);
+
         } catch (RuntimeException e) {
             logger.info("v--- The following exception is expected because 'Suneel' is too " +
                     "big for the DB ---v");
@@ -42,7 +51,11 @@ class AppRunner implements CommandLineRunner {
         Assert.isTrue(bookingService.findAllBookings().size() == 3, "'Suneel' should have triggered a rollback");
 
         try {
-            bookingService.book("Buddy",null);
+            List<String> test1 = new ArrayList();
+            test1.add("Buddy");
+            test1.add(null);
+
+            bookingService.book(test1);
         } catch (RuntimeException e) {
             logger.info("v--- The following exception is expect because null is not " +
                     "valid for the DB ---v");

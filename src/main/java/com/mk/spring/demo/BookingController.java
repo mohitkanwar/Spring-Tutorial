@@ -40,7 +40,14 @@ public class BookingController {
              * However, the check is missing here intentionally to observe the Transactional
              * behaviour from Spring.
              */
-            service.book(name1,name2,name3,name4,name5,name6);
+            List<String> names= new ArrayList<>();
+            names.add(name1);
+            names.add(name2);
+            names.add(name3);
+            names.add(name4);
+            names.add(name5);
+            names.add(name6);
+            service.book(names);
         }
         catch (RuntimeException e){
             logger.error(e.getMessage());
