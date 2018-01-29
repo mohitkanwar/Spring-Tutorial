@@ -26,7 +26,7 @@ public class DefaultBookingServiceImpl implements BookingService{
     @Transactional
     public void book(List<String> persons) {
         for (String person : persons) {
-            logger.info("Booking " + person + " in a seat...");
+            logger.info("Booking " + person + " in a default seat...");
             jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
         }
     }

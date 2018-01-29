@@ -25,7 +25,7 @@ public class SpecialBookingServiceImpl implements BookingService{
     public void book(List<String> persons) {
         for (String person : persons) {
             logger.info("**** This is a Special Service ****");
-            logger.info("Booking " + person + " in a seat...");
+            logger.info("Booking " + person + " in a special seat...");
             jdbcTemplate.update("insert into BOOKINGS(FIRST_NAME) values (?)", person);
         }
     }

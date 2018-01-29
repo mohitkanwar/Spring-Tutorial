@@ -22,7 +22,7 @@ public class BookingController {
     private final static Logger logger = LoggerFactory.getLogger(BookingController.class);
 
     @Autowired
-    @Qualifier("special")
+    @Qualifier("default")
     private BookingService service;
     @RequestMapping(value = "/book" , method = { RequestMethod.POST  })
     public ModelAndView bookSeat(@RequestParam(value="name1", required=false) String name1,
