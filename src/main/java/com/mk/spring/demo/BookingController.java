@@ -22,6 +22,12 @@ public class BookingController {
 
     @Autowired
     private BookingService service;
+    @RequestMapping("/bookedseates")
+    public  String books(@RequestParam(value="errorMessage", required=false) String errorMessage, Model model) {
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("bookings", service.findAllBookings());
+        return "booking";
+    }
     @RequestMapping(value = "/book" , method = { RequestMethod.POST  })
     public ModelAndView bookSeat(@RequestParam(value="name1", required=false) String name1,
                                  @RequestParam(value="name2", required=false) String name2,
@@ -57,10 +63,5 @@ public class BookingController {
 
     }
 
-    @RequestMapping("/bookedseates")
-    public  String books(@RequestParam(value="errorMessage", required=false) String errorMessage, Model model) {
-        model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("bookings", service.findAllBookings());
-        return "booking";
-    }
+
 }
