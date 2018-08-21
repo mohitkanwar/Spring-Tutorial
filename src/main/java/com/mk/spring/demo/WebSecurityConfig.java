@@ -30,11 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+            //noop password encoder
         auth
             .inMemoryAuthentication()
-                .withUser("User").password("password").roles("USER");
+                .withUser("User").password("{noop}password").roles("USER");
         auth
                 .inMemoryAuthentication()
-                .withUser("Mohit").password("password").roles("USER");
+                .withUser("Mohit").password("{noop}password").roles("USER");
     }
 }
