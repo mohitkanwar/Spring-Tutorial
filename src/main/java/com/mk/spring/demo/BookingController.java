@@ -22,21 +22,27 @@ public class BookingController {
     private final static Logger logger = LoggerFactory.getLogger(BookingController.class);
 
     @Autowired
-    @Qualifier("special")
     private BookingService service;
+
+    @Autowired
+    @Qualifier("special")
+    private BookingService specialService;
     @RequestMapping(value = "/book" , method = { RequestMethod.POST  })
-    public ModelAndView bookSeat(@RequestParam(value="name1", required=false) String name1,
-                                 @RequestParam(value="name2", required=false) String name2,
-                                 @RequestParam(value="name3", required=false) String name3,
-                                 @RequestParam(value="name4", required=false) String name4,
-                                 @RequestParam(value="name5", required=false) String name5,
-                                 @RequestParam(value="name6", required=false) String name6,
+    public ModelAndView bookSeat(@RequestParam(value="name", required=false) String name,
+                                 @RequestParam(value="isSpecial", required=false) String isSpecial,
                                  Model model) {
         String errorMessage=null;
         try {
-            service.book(name1,name2,name3,name4,name5,name6);
+            if("on".equalsIgnoreCase(isSpecial)){
+                specialService.book(name);
+            }
+            else{
+                service.book(name);
+            }
+
         }
         catch (RuntimeException e){
+            e.printStackTrace();
             logger.error(e.getMessage());
 
             if(e.getMessage().contains("Value too long for column")){
@@ -47,7 +53,7 @@ public class BookingController {
             }
 
         }
-        return new ModelAndView("redirect:/bookedseates","errorMessage",errorMessage);
+        return new ModelAndView("redirect:/","errorMessage",errorMessage);
 
     }
 
@@ -59,7 +65,7 @@ public class BookingController {
 
     }
 
-    @RequestMapping("/bookedseates")
+    @RequestMapping("/")
     public  String books(@RequestParam(value="errorMessage", required=false) String errorMessage, Model model) {
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("bookings", service.findAllBookings());

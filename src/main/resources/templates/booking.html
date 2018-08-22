@@ -14,6 +14,10 @@
 	            background-image: url(macro-1208503_1920.jpg);
                 background-repeat: no-repeat;
                 background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
 	    }
 
         .centerDiv{
@@ -25,6 +29,49 @@
             text-align: center;
             opacity: 0.92;
             margin:15%;
+        }
+        *, *:after, *:before {
+            box-sizing: border-box;
+        }
+
+
+
+        input#isSpecial {
+            position: absolute;
+            opacity: 0;
+        }
+        input#isSpecial:checked + label svg path {
+            stroke-dashoffset: 0;
+        }
+        input#isSpecial:focus + label {
+            transform: scale(1.03);
+        }
+
+        #isSpecial + label {
+            display: block;
+            border: 5px solid #333;
+            width: var(--d);
+            height: var(--d);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        #isSpecial + label:active {
+            transform: scale(1.05);
+            border-radius: 30px;
+        }
+        #isSpecial + label svg {
+            pointer-events: none;
+        }
+        #isSpecial + label svg path {
+            fill: none;
+            stroke: #333;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 101;
+            transition: all 350ms cubic-bezier(1, 0, 0.37, 0.91);
         }
 
 
@@ -49,7 +96,7 @@
                 <div class="col" >
                     <div class="card">
                         <span class="badge badge-success" th:if="${person.bookingType.equals('SPECIAL')}">Special</span>
-                        <div class="card-body" th:text="${person.name} + '!'">
+                        <div class="card-body" th:text="${person.name}">
 
                         </div>
                     </div>
@@ -71,32 +118,14 @@
                             <div class="input-group">
                                 <label for="passenger1" class="col-sm-2 col-form-label">Passenger 1</label>
                                 <input type="input" class="form-control" id="passenger1" placeholder="First name of Passenger 1"
-                                       name="name1" aria-label="name1"/>
-                            </div>
-                            <div class="input-group">
-                                <label for="passenger2" class="col-sm-2 col-form-label">Passenger 2</label>
-                                <input type="input" class="form-control" id="passenger2" placeholder="First name of Passenger 2"
-                                       name="name2" aria-label="name1"/>
-                            </div>
-                            <div class="input-group">
-                                <label for="passenger3" class="col-sm-2 col-form-label">Passenger 3</label>
-                                <input type="input" class="form-control" id="passenger3" placeholder="First name of Passenger 3"
-                                       name="name3" aria-label="name1"/>
-                            </div>
-                            <div class="input-group">
-                                <label for="passenger4" class="col-sm-2 col-form-label">Passenger 4</label>
-                                <input type="input" class="form-control" id="passenger4" placeholder="First name of Passenger 4"
-                                       name="name4" aria-label="name1"/>
-                            </div>
-                            <div class="input-group">
-                                <label for="passenger5" class="col-sm-2 col-form-label">Passenger 5</label>
-                                <input type="input" class="form-control" id="passenger5" placeholder="First name of Passenger 5"
-                                       name="name5" aria-label="name1"/>
-                            </div>
-                            <div class="input-group">
-                                <label for="passenger6" class="col-sm-2 col-form-label">Passenger 6</label>
-                                <input type="input" class="form-control" id="passenger6" placeholder="First name of Passenger 6"
-                                       name="name6" aria-label="name1"/>
+                                       name="name" aria-label="name"/>
+                                <label for="isSpecial" class="col-sm-2 col-form-label">Book Special Service</label>
+                                <input type="checkbox" id="isSpecial" name="isSpecial" aria-label="Special" class="form-control" />
+                                <label for="isSpecial" style="--d: 50px;">
+                                    <svg viewBox="0,0,50,50">
+                                        <path d="M5 30 L 20 45 L 45 5"></path>
+                                    </svg>
+                                </label>
                             </div>
                         </div>
                         <span class="input-group-btn">

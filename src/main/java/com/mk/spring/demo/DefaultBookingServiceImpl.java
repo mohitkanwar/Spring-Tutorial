@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Qualifier("default")
+@Primary
 public class DefaultBookingServiceImpl implements BookingService{
 
     private final static Logger logger = LoggerFactory.getLogger(DefaultBookingServiceImpl.class);

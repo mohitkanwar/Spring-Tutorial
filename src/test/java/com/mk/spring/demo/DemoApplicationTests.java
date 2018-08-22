@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DemoApplicationTests {
 
 	@Autowired
-	private HomeController controller;
+	private BookingController controller;
 	@Test
 	public void contextLoads() {
 		assertThat(controller).isNotNull();
